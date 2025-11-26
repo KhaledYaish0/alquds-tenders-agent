@@ -1,1 +1,11 @@
 .venv/
+# Python
+__pycache__/
+*.pyc
+
+# Data
+data/issues/*.pdf
+data/annotated/*
+
+# Logs
+*.log
