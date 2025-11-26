@@ -1,10 +1,11 @@
 name: AlQuds Tenders Daily Agent
 
 on:
+  push:
+    branches: [ "main" ]   
+  workflow_dispatch:       
   schedule:
-    # كل يوم 11 الصبح بتوقيت فلسطين (9 UTC)
-    - cron: "0 9 * * *"
-  workflow_dispatch: {}  
+    - cron: "0 9 * * *"     # كل يوم 11 الصبح بتوقيت فلسطين (9 UTC)
 
 jobs:
   run-agent:
@@ -29,4 +30,3 @@ jobs:
           TZ: "Asia/Jerusalem"
         run: |
           python -m src.main
-
