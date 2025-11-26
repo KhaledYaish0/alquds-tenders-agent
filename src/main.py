@@ -1,5 +1,3 @@
-# src/main.py
-
 from pathlib import Path
 import re
 
@@ -10,11 +8,11 @@ from .downloader import download_issue_for_today  # 👈 مهم جداً
 
 
 def analyze_issue(pdf_path: Path):
-    # نستخرج التاريخ من اسم الملف لو أمكن
+  
     m = re.search(r"(\d{2}-\d{2}-\d{4})", pdf_path.name)
     issue_date = m.group(1) if m else "تاريخ غير معروف"
 
-    print(f"📄 تحليل العدد: {pdf_path.name} (التاريخ: {issue_date})")
+    print(f" تحليل العدد: {pdf_path.name} (التاريخ: {issue_date})")
     pages = extract_pages_text(pdf_path)
 
     engineering_pages = []
@@ -29,7 +27,7 @@ def analyze_issue(pdf_path: Path):
         if not cls.has_tender:
             continue
 
-        # تشخيص سريع عالشاشة
+      
         print("-" * 60)
         print(f"صفحة {cls.page_number}")
         print(f"  ملاحظة: {cls.note}")
@@ -43,7 +41,7 @@ def analyze_issue(pdf_path: Path):
         else:
             other_tender_pages.append(cls)
 
-    print("\n✅ ملخص العدد:")
+    print("\n ملخص العدد:")
     print(f"- عدد الصفحات ذات العطاءات الهندسية: {len(engineering_pages)}")
     print(f"- عدد الصفحات ذات عطاءات أخرى (توريد/مقاولات): {len(other_tender_pages)}")
 
@@ -51,12 +49,11 @@ def analyze_issue(pdf_path: Path):
 
 
 if __name__ == "__main__":
-    # 👇 هنا التعديل الذهبي:
-    # نجعل الإيجنت ينزل عدد اليوم تلقائياً حتى لو مش موجود
+  
     issue_path = download_issue_for_today()
 
     if issue_path is None:
-        print("❌ لم يتم العثور على عدد اليوم (لا محليًا ولا عبر التنزيل).")
+        print(" لم يتم العثور على عدد اليوم (لا محليًا ولا عبر التنزيل).")
         raise SystemExit(1)
 
     # نحلل العدد
@@ -69,11 +66,11 @@ if __name__ == "__main__":
     )
 
     print("\n" + "=" * 60)
-    print("✉️ اقتراح إيميل يمكن إرساله للوالد:\n")
+    print(" اقتراح إيميل يمكن إرساله للوالد:\n")
     print("Subject:", email_subject)
     print()
     print(email_body)
 
     print("\n" + "=" * 60)
-    print("📲 اقتراح رسالة واتساب:\n")
+    print(" اقتراح رسالة واتساب:\n")
     print(whatsapp_msg)
