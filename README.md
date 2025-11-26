@@ -1,42 +1,42 @@
-# Al-Quds Tenders Agent 📰🤖
+# Al-Quds Tenders Agent 
 
 An automated Python tool that downloads the daily **Al-Quds** newspaper
 issue (PDF), extracts pages that contain **tenders**, classifies them
 (engineering / supply / contractor), and generates a ready-to-send
 **email + WhatsApp summary** for an engineering office.
 
-> 💬 **Arabic-first output**: All summaries and suggested messages are
+> **Arabic-first output**: All summaries and suggested messages are
 > generated in Arabic, tailored for Palestinian engineering tenders.
 
 ------------------------------------------------------------------------
 
-## 🚀 Main Features
+## Main Features
 
--   📥 **Automatic issue download**
+-   **Automatic issue download**
     -   Downloads today's Al-Quds issue as a PDF into `data/issues/`.
     -   Skips download if the file already exists locally.
--   📄 **PDF text extraction**
+-   **PDF text extraction**
     -   Uses `pdfplumber` to extract text from each page.
     -   Handles pages with missing/invalid text gracefully.
--   🧠 **Tender classification per page** For each page the tool
+-   **Tender classification per page** For each page the tool
     detects:
     -   Does this page contain a **tender / announcement / RFQ**?
     -   Is it an **engineering** tender?
     -   Is it **supply-only**?
     -   Is it **contractor-only**?
     -   Is it related to **Jerusalem** (القدس) or not?
--   📝 **Daily engineering tenders report**
+-   **Daily engineering tenders report**
     -   Counts engineering-related tender pages.
     -   Lists the detected pages with brief notes.
     -   Builds a clean Arabic **email body** to send to the office.
     -   Builds a short **WhatsApp message** for quick sharing.
--   ⚙️ **GitHub Actions automation**
+-   **GitHub Actions automation**
     -   Optional workflow to run the script on a daily schedule using
         GitHub Actions.
 
 ------------------------------------------------------------------------
 
-## 🗂 Project Structure
+## Project Structure
 
 ``` text
 .
@@ -59,14 +59,14 @@ issue (PDF), extracts pages that contain **tenders**, classifies them
 └── .gitignore
 ```
 
-> 📝 **Note:**\
+> **Note:**\
 > `read_pdf_pages.py` is an older standalone script used during
 > development.\
 > The production-ready flow lives under `src/`.
 
 ------------------------------------------------------------------------
 
-## 🧰 Tech Stack
+## Tech Stack
 
 -   **Language:** Python 3.10+
 -   **PDF Processing:** `pdfplumber`
@@ -81,7 +81,7 @@ pip install -r requirements.txt
 
 ------------------------------------------------------------------------
 
-## 🔧 Installation & Setup
+## Installation & Setup
 
 ``` bash
 git clone https://github.com/KhaledYaish0/alquds-tenders-agent.git
@@ -104,7 +104,7 @@ mkdir -p data/issues
 
 ------------------------------------------------------------------------
 
-## ▶️ Usage
+## Usage
 
 ### Run the project:
 
@@ -126,8 +126,8 @@ Process:
 Output example:
 
 ``` text
-✅ ملف عدد اليوم موجود مسبقاً: data/issues/Al-Quds 26-11-2025.pdf
-📄 تحليل العدد: Al-Quds 26-11-2025.pdf (التاريخ: 26-11-2025)
+ ملف عدد اليوم موجود مسبقاً: data/issues/Al-Quds 26-11-2025.pdf
+ تحليل العدد: Al-Quds 26-11-2025.pdf (التاريخ: 26-11-2025)
 
 صفحة 10:
   ملاحظة: عطاء توريد/تجهيز فقط
@@ -138,16 +138,16 @@ Output example:
 
 ...
 
-✉️ اقتراح إيميل يمكن إرساله للوالد:
+ اقتراح إيميل يمكن إرساله للوالد:
 (نص الإيميل...)
 
-📲 اقتراح رسالة واتساب:
+ اقتراح رسالة واتساب:
 (نص الواتساب...)
 ```
 
 ------------------------------------------------------------------------
 
-## ⚙️ Customization
+## Customization
 
 Modify detection keywords via:
 
@@ -163,7 +163,7 @@ Change summary formatting:
 
 ------------------------------------------------------------------------
 
-## 🤖 GitHub Actions (Optional)
+## GitHub Actions (Optional)
 
 Located at:
 
@@ -183,7 +183,7 @@ Enable it in GitHub → Actions.
 
 ------------------------------------------------------------------------
 
-## 🧪 Testing (Suggested)
+## Testing (Suggested)
 
 Create folder:
 
@@ -206,7 +206,7 @@ pytest
 
 ------------------------------------------------------------------------
 
-## 🧠 Motivation
+## Motivation
 
 This tool automates the daily manual process of scanning the Al-Quds
 newspaper to find engineering tenders relevant to Palestinian
@@ -217,7 +217,7 @@ communication.
 
 ------------------------------------------------------------------------
 
-## 📩 Contact
+## Contact
 
 Created by **Khaled Yaish**\
 Computer Engineer -- Palestine
