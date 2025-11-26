@@ -1,7 +1,6 @@
 from typing import Sequence
 from .tender_classifier import PageClassification
 
-
 def build_daily_report(issue_date: str, engineering_pages: Sequence[PageClassification]):
     """
     يبني:
