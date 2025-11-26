@@ -10,6 +10,15 @@ issue (PDF), extracts pages that contain **tenders**, classifies them
 
 ------------------------------------------------------------------------
 
+## Background
+
+- This project was originally built after noticing a recurring issue at my father's engineering consultancy firm:
+the team had to manually open Al-Quds Newspaper every morning, browse dozens of pages, and search for any new engineering tenders.
+
+- To eliminate this daily manual work, I decided to fully automate the entire process — from downloading the PDF, to scanning and classifying tender pages, to generating ready-to-send email and WhatsApp summaries.
+
+- The result is a complete daily agent that performs the entire workflow automatically.
+
 ## Main Features
 
 -   **Automatic issue download**
