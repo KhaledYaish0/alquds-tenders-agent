@@ -8,13 +8,6 @@ ISSUES_DIR = Path("data/issues")
 ALQUDS_PDF_PAGE_URL = "https://www.alquds.com/ar/issues"
 
 
-HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/120.0 Safari/537.36"
-    )
-}
 
 
 def build_issue_filename(date: datetime) -> Path:
@@ -76,7 +69,7 @@ def download_issue_for_today() -> Path | None:
     print(f" تنزيل عدد اليوم من: {pdf_url}")
     try:
         
-        resp = requests.get(pdf_url, headers=HEADERS, timeout=60)
+        resp = requests.get(pdf_url, timeout=60)
         content_type = resp.headers.get("content-type", "").lower()
 
         if resp.status_code == 200 and content_type.startswith("application/pdf"):
