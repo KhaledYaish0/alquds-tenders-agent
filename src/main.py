@@ -74,9 +74,11 @@ def main() -> int:
 
     if pdf_path is None or not pdf_path.exists():
         print(
-            "⚠️ لم يتم العثور على عدد اليوم (لا محلياً ولا عبر التنزيل).\n"
-            "   إذا كنت على GitHub Actions فالغالب أن السيرفر حجب الطلب (HTTP 403).\n"
-            "   شغّل السكربت محلياً من جهازك للحصول على التقرير."
+       "Could not retrieve today's issue (neither locally nor via download).\n"
+        "   If you are running this inside GitHub Actions, the server most likely blocked\n"
+        "   the request (HTTP 403). This is a known issue caused by Al-Quds blocking\n"
+        "   cloud/CI IP ranges.\n"
+        "   Please run the script locally or on a VPS for a successful download."
         )
         
         return 0
