@@ -1,5 +1,3 @@
-# src/report_builder.py
-
 from typing import Sequence
 from .tender_classifier import PageClassification
 
@@ -24,11 +22,11 @@ def build_daily_report(issue_date: str, engineering_pages: Sequence[PageClassifi
             f"تم فحص عدد جريدة القدس بتاريخ {issue_date}،\n"
             f"ولم يتم العثور على أي عطاءات هندسية أو استشارية مناسبة للمكتب.\n\n"
             f"تحياتي،\n"
-            f"نظام متابعة العطاءات (كود خالد) 😉"
+            f"نظام متابعة العطاءات "
         )
 
         whatsapp = (
-            f"👷‍♂️ تقرير عطاءات جريدة القدس – {issue_date}:\n"
+            f" تقرير عطاءات جريدة القدس – {issue_date}:\n"
             f"فش عطاءات هندسية اليوم."
         )
         return subject, body, whatsapp
@@ -52,7 +50,7 @@ def build_daily_report(issue_date: str, engineering_pages: Sequence[PageClassifi
 
     # رسالة واتساب مختصرة
     whatsapp_lines = []
-    whatsapp_lines.append(f"👷‍♂️ تقرير عطاءات جريدة القدس – {issue_date}")
+    whatsapp_lines.append(f" تقرير عطاءات جريدة القدس – {issue_date}")
     whatsapp_lines.append(f"عدد الصفحات اللي فيها عطاءات هندسية: {len(engineering_pages)}")
 
     for cls in engineering_pages:
