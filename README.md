@@ -54,14 +54,11 @@ issue (PDF), extracts pages that contain **tenders**, classifies them
 │   ├── keywords.py               # Arabic/English keyword lists
 │   ├── tender_classifier.py      # Page-level classification logic
 │   └── report_builder.py         # Email & WhatsApp message generator
-├── read_pdf_pages.py             # Legacy / experimental script (optional)
 ├── requirements.txt
 └── .gitignore
 ```
 
-> **Note:**\
-> `read_pdf_pages.py` is an older standalone script used during
-> development.\
+
 > The production-ready flow lives under `src/`.
 
 ------------------------------------------------------------------------
