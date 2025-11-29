@@ -11,6 +11,10 @@ jobs:
   run-agent:
     runs-on: ubuntu-latest
 
+    env:
+    RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4

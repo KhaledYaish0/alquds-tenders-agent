@@ -21,14 +21,16 @@ class PageClassification:
 
 
 def _contains_any(text: str, keywords: list[str]) -> bool:
-    t = (text or "").lower()
-    return any(kw.lower() in t for kw in keywords)
+    """Return True if any of the given keywords appears in the text."""
+    normalized = (text or "").lower()
+    return any(kw.lower() in normalized for kw in keywords)
 
 
 def classify_page(page_number: int, text: str) -> PageClassification:
     """
-    تصنيف مبدئي للصفحة كاملة.
-    لاحقاً ممكن نطوره ليسحب كل عطاء لحاله.
+    Basic classification for an entire page.
+
+    Later this can be extended to detect and extract each tender separately.
     """
     if not text:
         return PageClassification(
@@ -38,9 +40,10 @@ def classify_page(page_number: int, text: str) -> PageClassification:
             is_supply_only=False,
             is_contractor_only=False,
             is_in_jerusalem=False,
-            note="صفحة بدون نص (قد تحتاج OCR لاحقاً).",
+            note="Page has no text (might require OCR in the future).",
         )
 
+    # Does this page look like it contains any tender / bid at all?
     has_tender = _contains_any(text, TENDER_KEYWORDS)
 
     if not has_tender:
@@ -51,50 +54,56 @@ def classify_page(page_number: int, text: str) -> PageClassification:
             is_supply_only=False,
             is_contractor_only=False,
             is_in_jerusalem=False,
-            note="لا يوجد كلمات تدل على عطاء/مناقصة.",
+            note="No words found that indicate a tender / bid.",
         )
 
-    # نحدد نوع الكلمات اللي ظهرت في النص
+    # Determine which types of keywords are present
     has_engineering = _contains_any(text, ENGINEERING_KEYWORDS)
     has_supply = _contains_any(text, SUPPLY_KEYWORDS)
     has_contractor = _contains_any(text, CONTRACTOR_KEYWORDS)
     in_jerusalem = _contains_any(text, JERUSALEM_KEYWORDS)
 
-    # القيم الافتراضية
+    # Default flags
     is_engineering = False
     is_supply_only = False
     is_contractor_only = False
     note = ""
 
-    # 🔴 قاعدة خالد: أي توريد = مش شغل المكتب، حتى لو مذكور هندسي
-        # القيم الافتراضية
-    is_engineering = False
-    is_supply_only = False
-    is_contractor_only = False
+    # Khaled's rule:
+    #   Any "pure supply" tender is not relevant to the office,
+    #   even if engineering terms appear. The branches below
+    #   encode this preference.
 
-    # 1) لو في إشارات هندسية → أهم إشارة
+    # 1) Engineering-related keywords present → most important signal
     if has_engineering:
         is_engineering = True
         if has_supply or has_contractor:
-            note = "الصفحة تحتوي على عطاء استشاري/هندسي مناسب للمكتب، وقد توجد عطاءات توريد/تنفيذ أخرى في نفس الصفحة لا تهمنا."
+            note = (
+                "Page contains an engineering / consultancy tender relevant to the office; "
+                "there may also be supply / execution tenders on the same page that can be ignored."
+            )
         else:
-            note = "عطاء استشاري / هندسي (تصميم أو دراسات أو إعداد وثائق عطاء) مناسب للمكتب."
+            note = (
+                "Engineering / consultancy tender (design, studies or preparation of tender "
+                "documents) relevant to the office."
+            )
 
-    # 2) مافي هندسي، بس في توريد
+    # 2) No engineering, only supply
     elif has_supply and not has_contractor:
         is_supply_only = True
-        note = "عطاء توريد/تجهيز فقط (غير مهم للمكتب الاستشاري)."
+        note = "Supply / delivery tender only (not relevant to the consultancy office)."
 
-    # 3) مافي هندسي، بس في مقاولات
+    # 3) No engineering, only contractor / execution
     elif has_contractor and not has_supply:
         is_contractor_only = True
-        note = "عطاء تنفيذ/مقاولات فقط (غير مناسب للمكتب الاستشاري)."
+        note = "Execution / contractor tender only (not relevant to the consultancy office)."
 
-    # 4) نوع مش واضح
+    # 4) Tender exists but type is unclear
     else:
-        note = "إعلان عطاء/مناقصة لكن نوعه غير واضح تماماً."
+        note = "Tender / bid announcement found, but its type is not clearly identified."
+
     if in_jerusalem:
-        note += " (مرتبط بالقدس، وقد يستبعد لاحقاً لصعوبة الوصول)."
+        note += " (Related to Jerusalem and may be excluded later due to access difficulty.)"
 
     return PageClassification(
         page_number=page_number,
